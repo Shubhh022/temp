@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Fill in the Code Game</title>
+<style>
+  body {
+    font-family: "Arial", sans-serif;
+    background: #fff8e1;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+  }
+  h1 {
+    color: #ff9800;
+  }
+  #questionBox {
+    background: #fff3cd;
+    border: 2px solid #ff9800;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 600px;
+    font-size: 18px;
+  }
+  .blank {
+    display: inline-block;
+    min-width: 60px;
+    border-bottom: 2px dashed #ff9800;
+    margin: 0 5px;
+    font-weight: bold;
+  }
+  #options {
+    margin-top: 80px;
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+  }
+  .hanger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .rope {
+    width: 2px;
+    height: 80px;
+    background: #333;
+    margin-bottom: 10px;
+  }
+  .option {
+    font-size: 20px;
+    font-weight: bold;
+    background: #ff9800;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  }
+  .option:hover {
+    background: #e68900;
+  }
+  #message {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  #langBtn {
+    margin-bottom: 15px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    background: #ff9800;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  #langBtn:hover {
+    background: #e68900;
+  }
+</style>
+</head>
+<body>
+  <h1 id="title">Fill in the Code 🎯</h1>
+  <button id="langBtn">Switch to Odia</button>
+
+  <div id="questionBox">
+    <span id="questionText">Q1: Complete the Java loop code:</span><br><br>
+    <code>
+      for(int i = 1; i &lt;= <span class="blank" id="blank1">_</span>; i++) { <br>
+      &nbsp;&nbsp;System.out.println(i); <br>
+      }
+    </code>
+  </div>
+
+  <div id="options"></div>
+
+  <p id="message"></p>
+
+  <script>
+    const correctAnswer = "10";
+    const options = ["5", "10", "20", "i"];
+
+    // 🔤 Translations
+    const translations = {
+      english: {
+        title: "Fill in the Code 🎯",
+        question: "Q1: Complete the Java loop code:",
+        correct: "🎉 Correct!",
+        wrong: "❌ Try Again!",
+        switchBtn: "Switch to Odia"
+      },
+      odia: {
+        title: "କୋଡ୍ ପୂରଣ କରନ୍ତୁ 🎯",
+        question: "Q1: Java loop କୋଡ୍ ପୂରଣ କରନ୍ତୁ:",
+        correct: "🎉 ସଠିକ୍!",
+        wrong: "❌ ପୁନିଚେଷ୍ଟା କରନ୍ତୁ!",
+        switchBtn: "Switch to English"
+      }
+    };
+
+    let currentLang = "english";
+
+    function createOptions(){
+      const optionsBox = document.getElementById("options");
+      optionsBox.innerHTML = "";
+      options.forEach(opt => {
+        const hanger = document.createElement("div");
+        hanger.className = "hanger";
+
+        const rope = document.createElement("div");
+        rope.className = "rope";
+
+        const div = document.createElement("div");
+        div.className = "option";
+        div.textContent = opt;
+        div.onclick = () => checkAnswer(opt);
+
+        hanger.appendChild(rope);
+        hanger.appendChild(div);
+        optionsBox.appendChild(hanger);
+      });
+    }
+
+    function checkAnswer(choice){
+      const msg = document.getElementById("message");
+      if(choice === correctAnswer){
+        document.getElementById("blank1").textContent = choice;
+        msg.textContent = translations[currentLang].correct;
+        msg.style.color = "green";
+      } else {
+        msg.textContent = translations[currentLang].wrong;
+        msg.style.color = "red";
+      }
+    }
+
+    // 🔘 Language switch
+    document.getElementById("langBtn").addEventListener("click", () => {
+      currentLang = currentLang === "english" ? "odia" : "english";
+      updateLanguage();
+    });
+
+    function updateLanguage(){
+      const t = translations[currentLang];
+      document.getElementById("title").textContent = t.title;
+      document.getElementById("questionText").textContent = t.question;
+      document.getElementById("langBtn").textContent = t.switchBtn;
+    }
+
+    // Init
+    createOptions();
+  </script>
+</body>
+</html>
