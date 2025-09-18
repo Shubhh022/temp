@@ -65,8 +65,8 @@
     margin-top: 20px;
     font-weight: bold;
   }
-  #langBtn {
-    margin-bottom: 15px;
+  #langBtn, #nextBtn {
+    margin: 15px 10px;
     padding: 6px 12px;
     border: none;
     border-radius: 6px;
@@ -75,7 +75,7 @@
     cursor: pointer;
     font-weight: bold;
   }
-  #langBtn:hover {
+  #langBtn:hover, #nextBtn:hover {
     background: #e68900;
   }
 </style>
@@ -85,46 +85,83 @@
   <button id="langBtn">Switch to Odia</button>
 
   <div id="questionBox">
-    <span id="questionText">Q1: Complete the Java loop code:</span><br><br>
-    <code>
-      for(int i = 1; i &lt;= <span class="blank" id="blank1">_</span>; i++) { <br>
-      &nbsp;&nbsp;System.out.println(i); <br>
-      }
-    </code>
+    <span id="questionText"></span><br><br>
+    <code id="codeBox"></code>
   </div>
 
   <div id="options"></div>
 
   <p id="message"></p>
+  <button id="nextBtn">Next Question ➡️</button>
 
   <script>
-    const correctAnswer = "10";
-    const options = ["5", "10", "20", "i"];
+    // Questions Data
+    const questions = [
+      {
+        text: "Q1: Complete the Java loop code:",
+        code: `for(int i = 1; i <= <span class="blank" id="blank">_</span>; i++) {<br>&nbsp;&nbsp;System.out.println(i);<br>}`,
+        answer: "10",
+        options: ["5", "10", "20", "i"]
+      },
+      {
+        text: "Q2: Fill the correct keyword to define a class in Java:",
+        code: `<span class="blank" id="blank">_</span> MyClass {<br>&nbsp;&nbsp;int x = 5;<br>}`,
+        answer: "class",
+        options: ["class", "public", "void", "static"]
+      },
+      {
+        text: "Q3: Choose the correct operator for equality check in Java:",
+        code: `if(a <span class="blank" id="blank">_</span> b) {<br>&nbsp;&nbsp;System.out.println(\"Equal\");<br>}`,
+        answer: "==",
+        options: ["=", "==", "!=", "equals"]
+      },
+      {
+        text: "Q4: Fill in the missing return type of main method:",
+        code: `public static <span class="blank" id="blank">_</span> main(String[] args) {<br>&nbsp;&nbsp;// code<br>}`,
+        answer: "void",
+        options: ["int", "main", "void", "String"]
+      },
+      {
+        text: "Q5: Fill the keyword to create an object:",
+        code: `MyClass obj = <span class="blank" id="blank">_</span> MyClass();`,
+        answer: "new",
+        options: ["class", "create", "new", "this"]
+      }
+    ];
 
-    // 🔤 Translations
+    // Translations
     const translations = {
       english: {
         title: "Fill in the Code 🎯",
-        question: "Q1: Complete the Java loop code:",
         correct: "🎉 Correct!",
         wrong: "❌ Try Again!",
-        switchBtn: "Switch to Odia"
+        switchBtn: "Switch to Odia",
+        nextBtn: "Next Question ➡️"
       },
       odia: {
         title: "କୋଡ୍ ପୂରଣ କରନ୍ତୁ 🎯",
-        question: "Q1: Java loop କୋଡ୍ ପୂରଣ କରନ୍ତୁ:",
         correct: "🎉 ସଠିକ୍!",
         wrong: "❌ ପୁନିଚେଷ୍ଟା କରନ୍ତୁ!",
-        switchBtn: "Switch to English"
+        switchBtn: "Switch to English",
+        nextBtn: "ପରବର୍ତ୍ତୀ ପ୍ରଶ୍ନ ➡️"
       }
     };
 
     let currentLang = "english";
+    let currentQ = 0;
 
-    function createOptions(){
+    function loadQuestion(){
+      const q = questions[currentQ];
+      document.getElementById("questionText").innerHTML = q.text;
+      document.getElementById("codeBox").innerHTML = q.code;
+      createOptions(q.options);
+      document.getElementById("message").textContent = "";
+    }
+
+    function createOptions(opts){
       const optionsBox = document.getElementById("options");
       optionsBox.innerHTML = "";
-      options.forEach(opt => {
+      opts.forEach(opt => {
         const hanger = document.createElement("div");
         hanger.className = "hanger";
 
@@ -143,9 +180,10 @@
     }
 
     function checkAnswer(choice){
+      const q = questions[currentQ];
       const msg = document.getElementById("message");
-      if(choice === correctAnswer){
-        document.getElementById("blank1").textContent = choice;
+      if(choice === q.answer){
+        document.getElementById("blank").textContent = choice;
         msg.textContent = translations[currentLang].correct;
         msg.style.color = "green";
       } else {
@@ -154,7 +192,19 @@
       }
     }
 
-    // 🔘 Language switch
+    // Next Question
+    document.getElementById("nextBtn").addEventListener("click", () => {
+      currentQ++;
+      if(currentQ < questions.length){
+        loadQuestion();
+      } else {
+        document.getElementById("questionBox").innerHTML = "🎉 Quiz Completed!";
+        document.getElementById("options").innerHTML = "";
+        document.getElementById("nextBtn").style.display = "none";
+      }
+    });
+
+    // Language switch
     document.getElementById("langBtn").addEventListener("click", () => {
       currentLang = currentLang === "english" ? "odia" : "english";
       updateLanguage();
@@ -163,12 +213,13 @@
     function updateLanguage(){
       const t = translations[currentLang];
       document.getElementById("title").textContent = t.title;
-      document.getElementById("questionText").textContent = t.question;
       document.getElementById("langBtn").textContent = t.switchBtn;
+      document.getElementById("nextBtn").textContent = t.nextBtn;
     }
 
     // Init
-    createOptions();
+    loadQuestion();
   </script>
 </body>
 </html>
+
