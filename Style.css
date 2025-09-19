@@ -1,125 +1,67 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #fff;
+  background-color: #f9f9f9;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  position: relative;
-  overflow: hidden;
+  height: 100vh;
 }
 
-/* Yellow doodle icons (optional background images) */
-body::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('doodles.png') no-repeat center center/cover; 
-  opacity: 0.15; /* subtle effect */
-  z-index: -1;
-}
-
-.logo {
-  width: 150px;
-  margin-bottom: 1rem;
-}
-
-h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin: 0;
-}
-
-.tagline {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 1.5rem;
-}
-
-.login-box {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  width: 320px;
+header {
   text-align: center;
+  margin-bottom: 2rem;
 }
 
-.login-box input {
-  width: 100%;
-  padding: 0.9rem;
-  margin: 0.6rem 0;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 1rem;
+header h1 {
+  color: #FFD600; /* Primary yellow */
+  font-size: 2rem;
 }
 
-/* Forgot password link */
-.forgot {
-  display: block;
-  text-align: right;
-  margin-top: 0.3rem;
-  margin-bottom: 0.8rem;
-  font-size: 0.9rem;
-  color: #007BFF;
-  text-decoration: none;
+.choice-container {
+  display: flex;
+  gap: 2rem;
 }
 
-.forgot:hover {
-  text-decoration: underline;
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  padding: 2rem;
+  text-align: center;
+  width: 220px;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
 }
 
-.login-box button {
-  width: 100%;
-  padding: 0.9rem;
-  margin-top: 0.7rem;
-  background: #FFD600;
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.card button {
+  background-color: #FFD600;
   border: none;
+  padding: 0.8rem 1.2rem;
   border-radius: 10px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background 0.2s;
 }
 
-.login-box button:hover {
-  background: #e6c200;
-}
-
-.signup {
-  margin-top: 1rem;
-  font-size: 0.9rem;
-}
-
-.signup a {
-  text-decoration: none;
-  font-weight: 600;
-  color: #000;
+.card button:hover {
+  background-color: #e6c200;
 }
 
 footer {
   margin-top: 2rem;
-  text-align: center;
   font-size: 0.85rem;
-  color: #444;
-}
-
-footer nav {
-  margin-top: 0.5rem;
-}
-
-footer nav a {
-  margin: 0 10px;
-  text-decoration: none;
-  color: #000;
-  font-weight: 500;
-}
-
-footer nav a:hover {
-  text-decoration: underline;
+  color: #666;
 }

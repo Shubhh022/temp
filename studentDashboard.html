@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umeed - Login</title>
+  <!-- External CSS link -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Umeed</h1>
+    <p>Choose your login type</p>
+  </header>
+
+  <div class="choice-container">
+    <div class="card" onclick="loginAs('student')">
+      <h2>🎓 Student Login</h2>
+      <button>Login as Student</button>
+    </div>
+
+    <div class="card" onclick="loginAs('teacher')">
+      <h2>👨‍🏫 Teacher Login</h2>
+      <button>Login as Teacher</button>
+    </div>
+  </div>
+
+  <footer>
+    Powered by Umeed
+  </footer>
+
+  <script>
+    function loginAs(role) {
+      if (role === 'student') {
+        window.location.href = "student-login.html"; // link to student login page
+      } else if (role === 'teacher') {
+        window.location.href = "teacher-login.html"; // link to teacher login page
+      }
+    }
+  </script>
+</body>
+</html>
