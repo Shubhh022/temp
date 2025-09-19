@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umeed - Login</title>
+  <!-- Link external CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Inserted Logo -->
+  <img src="logo4.jpg" alt="Umeed Logo" class="logo">  
+
+  <h1>Umeed</h1>
+  <p class="tagline">Learn, Play, Grow</p>
+
+  <div class="login-box">
+    <form onsubmit="return handleLogin(event)">
+      <input type="text" id="username" placeholder="Email or Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+
+      <!-- Forgot password link -->
+      <a href="forgot-password.html" class="forgot">Forgot Password?</a>
+
+      <button type="submit">Login</button>
+    </form>
+    <div class="signup">
+      <a href="signup.html">Sign Up</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Powered by Umeed</p>
+    <nav>
+      <a href="#">About</a>
+      <a href="#">Help</a>
+      <a href="#">Privacy</a>
+    </nav>
+  </footer>
+
+  <script>
+    function handleLogin(event) {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username && password) {
+        alert("Logged in as " + username);
+      } else {
+        alert("Please enter both fields.");
+      }
+    }
+  </script>
+
+</body>
+</html>
